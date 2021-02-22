@@ -40,10 +40,11 @@
                     <td class="text-center">
                       <md-checkbox v-model="item.selected" @input="listenSelectRow"></md-checkbox>
                     </td>
+                    <td class="text-center" v-html="item.payer_name"></td>
                     <td class="text-center" v-html="item.name"></td>
-                    <td class="text-center" v-html="item.email"></td>
-                    <td class="text-center" v-html="item.full_name"></td>
+                    <td class="text-center" v-html="item.organization_id"></td>
                     <td class="text-center" v-html="item.created_at"></td>
+                    <td v-html="item.current_step_id"></td>
                     <td class="text-center">
                       <md-button class="md-just-icon md-simple md-primary" @click="showStudentInfo(item)">
                           <md-icon>visibility</md-icon>

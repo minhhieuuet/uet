@@ -8,6 +8,6 @@ use App\Models\File;
 class FileController extends Controller
 {
     public function getFiles() {
-        return File::all();
+        return File::paginate(10);
     }
 }
