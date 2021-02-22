@@ -1,19 +1,10 @@
+import FileRequest from './FileRequest';
 import UserRequest from './UserRequest';
-import StudentRequest from './StudentRequest';
-import TranslateRequest from './TranslateRequest';
-import WordRequest from './WordRequest';
-import CategoryRequest from './CategoryRequest';
-import GameRequest from './GameRequest';
-import NotificationRequest from './NotificationRequest';
+
 
 const requestMap = {
-    UserRequest,
-    StudentRequest,
-    TranslateRequest,
-    WordRequest,
-    CategoryRequest,
-    GameRequest,
-    NotificationRequest
+    FileRequest,
+    UserRequest
 };
 
 const instances = {};

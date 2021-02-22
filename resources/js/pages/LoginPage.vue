@@ -3,8 +3,7 @@
     <md-content class="md-elevation-3 login">
 
         <div class="title">
-            <img src="/images/login-logo.png">
-            <div class="md-title">Vocabulary Learning</div>
+            <div class="md-title">UET File Tracking</div>
         </div>
 
         <div class="form">
@@ -52,7 +51,7 @@ export default {
     name: 'LoginPage',
     data() {
         return {
-            name: 'user1',
+            name: 'ktv',
             password: '123456',
             isLoading: false,
             loading: false

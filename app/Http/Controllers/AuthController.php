@@ -4,18 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
-use App\Models\Bucket;
-use App\Http\Services\BucketService;
-use App\Http\Services\ImageService;
 
 class AuthController extends Controller
 {
-    protected $bucketService, $imageService;
-    
-    public function __construct(BucketService $bucketService, ImageService $imageService) {
-        $this->bucketService = $bucketService;
-        $this->imageService = $imageService;
-    }
+
     public function updateProfile(Request $request) {
         $user = $request->user();
         $request->validate([

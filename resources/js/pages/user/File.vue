@@ -72,19 +72,15 @@
 <script>
 import {
   SimpleTable,
-  OrderedTable
 } from '@/components'
 
 import rf from '../../requests/RequestFactory';
 import StudentModal from '../../modals/Student';
-import StatisticModal from '../../modals/Statistic';
 
 export default{
   components: {
-    OrderedTable,
     SimpleTable,
     StudentModal,
-    StatisticModal
   },
   data () {
     return {
@@ -177,9 +173,9 @@ export default{
       },
       getData (params) {
         const meta = Object.assign({}, params, {
-          search: this.searchInput,
+          search: this.searchInput, 
         });
-        return rf.getRequest('StudentRequest').getStudents(meta);
+        return rf.getRequest('FileRequest').getFiles(meta);
       },
       refresh() {
         this.isLoading = true;
