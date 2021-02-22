@@ -16,7 +16,7 @@ class CreateFileHistoriesTable extends Migration
         Schema::create('file_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('file_id');
-            $table->unsignedInteger('technician_id');
+            $table->unsignedInteger('accountant_id');
             $table->unsignedInteger('step_id');
             $table->string('content');
             $table->timestamps();

@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
         FileStepTableSeeder::class,
         FileTypeTableSeeder::class,
         RoleTableSeeder::class,
-        UserRoleTableSeeder::class
+        UserRoleTableSeeder::class,
+        FileTableSeeder::class,
+        FileHistorySeeder::class
       ]);
     }
 }

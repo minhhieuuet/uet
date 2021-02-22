@@ -15,13 +15,13 @@ class FileTableSeeder extends Seeder
         DB::table('files')->truncate();
         DB::table('files')->insert([
             [
-                "name" => "Dự toán"
-            ], [
-                "name" => "Hợp đồng, Thanh lý HĐ, BB liên quan"
-            ], [
-                "name" => "Tạm ứng"
-            ], [
-                "name" => "HS thanh toán"
+                "name" => "Dự toán",
+                "user_id" => 2,
+                "payer_name" => "Nguyen Van A",
+                "current_step_id" => 1,
+                "price" => 200000,
+                "file_type_id" => 1,
+                "organization_id" => 1
             ]
         ]);
     }
