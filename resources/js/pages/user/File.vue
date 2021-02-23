@@ -69,17 +69,17 @@
                   <td class="text-center">
                     <md-button
                       class="md-just-icon md-simple md-primary"
-                      @click="showStudentInfo(item)"
+                      @click="showFileInfo(item)"
                     >
                       <md-icon>visibility</md-icon>
-                      <md-tooltip md-direction="top">Xem kết quả học tập</md-tooltip>
+                      <md-tooltip md-direction="top">Xem</md-tooltip>
                     </md-button>
                     <md-button
                       class="md-just-icon md-simple md-primary"
-                      @click="editStudent(item.id)"
+                       @click="showFileInfo(item)"
                     >
                       <md-icon>edit</md-icon>
-                      <md-tooltip md-direction="top">Sửa</md-tooltip>
+                      <md-tooltip md-direction="top">Xử lý</md-tooltip>
                     </md-button>
                   </td>
                 </tr>
@@ -112,83 +112,9 @@ export default {
     };
   },
   methods: {
-    removeOneStudent(studentId) {
-      this.$modal.show("dialog", {
-        title: "Cảnh báo!",
-        text: "Bạn có chắc chắn muốn xóa ?",
-        buttons: [
-          {
-            title: "Bỏ qua",
-            handler: () => {
-              this.$modal.hide("dialog");
-            },
-          },
-          {
-            title: "Xác nhận",
-            default: true,
-            handler: () => {
-              return rf
-                .getRequest("StudentRequest")
-                .removeOneStudent(studentId)
-                .then(() => {
-                  this.$modal.hide("dialog");
-                  this.$refs.datatable.refresh();
-                  this.$toasted.show("Xóa người học thành công!", {
-                    theme: "bubble",
-                    position: "top-right",
-                    duration: 1500,
-                    type: "success",
-                  });
-                });
-            },
-          },
-        ],
-      });
-    },
-    removeManyStudent() {
-      this.$modal.show("dialog", {
-        title: "Cảnh báo!",
-        text: "Bạn có chắc chắn muốn xóa ?",
-        buttons: [
-          {
-            title: "Bỏ qua",
-            handler: () => {
-              this.$modal.hide("dialog");
-            },
-          },
-          {
-            title: "Xác nhận",
-            default: true,
-            handler: () => {
-              const studentIds = this.$refs.datatable.rows
-                .filter((row) => {
-                  return row.selected === true;
-                })
-                .map((record) => record.id);
-
-              return rf
-                .getRequest("StudentRequest")
-                .removeManyStudents(studentIds)
-                .then(() => {
-                  this.$modal.hide("dialog");
-                  this.$refs.datatable.refresh();
-                  this.$toasted.show("Student removed successfully!", {
-                    theme: "bubble",
-                    position: "top-right",
-                    duration: 1500,
-                    type: "success",
-                  });
-                });
-            },
-          },
-        ],
-      });
-    },
-    showStudentInfo(student) {
-      this.$modal.show("statistic", {
-        title: `Thông tin người dùng ${student.full_name}`,
-        id: student.id,
-      });
+    async showFileInfo(file) {
+     const result = await rf.getRequest("FileRequest").getHistories(file.id);
+     console.log(result);
     },
     createStudent() {
       this.$modal.show("student", { title: "Thêm người học" });

@@ -13,4 +13,8 @@ class File extends Model
     public function currentStep() {
         return $this->hasOne(FileStep::class, 'id', 'current_step_id');
     }
+
+    public function histories() {
+        return $this->hasMany(FileHistory::class);
+    }
 }
