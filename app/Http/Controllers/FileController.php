@@ -8,6 +8,6 @@ use App\Models\File;
 class FileController extends Controller
 {
     public function getFiles() {
-        return File::paginate(10);
+        return File::with('organization')->with('currentStep')->paginate(10);
     }
 }

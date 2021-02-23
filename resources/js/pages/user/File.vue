@@ -2,189 +2,225 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout md-gutter">
-        <div class="md-layout-item md-size-5">
-        </div>
+        <div class="md-layout-item md-size-5"></div>
         <div class="md-layout-item md-size-30">
-          <md-field >
+          <md-field>
             <label>Tìm kiếm</label>
-            <md-input type="text" name="text" v-model="searchInput" @keyup.enter="$refs.datatable.refresh()"></md-input>
+            <md-input
+              type="text"
+              name="text"
+              v-model="searchInput"
+              @keyup.enter="$refs.datatable.refresh()"
+            ></md-input>
             <md-icon>search</md-icon>
           </md-field>
         </div>
-        <div class="md-layout-item md-size-35">
-        </div>
+        <div class="md-layout-item md-size-35"></div>
         <div class="md-layout-item">
-          <md-button  class="md-success" @click="createStudent">Thêm</md-button>
-          <md-button  class="md-info" @click="refresh">Làm mới</md-button>
-          <md-button  class="md-danger" @click="removeManyStudent()">Xóa</md-button>
+          <md-button class="md-success" @click="createStudent">Thêm</md-button>
+          <md-button class="md-info" @click="refresh">Làm mới</md-button>
+          <md-button class="md-danger" @click="removeManyStudent()">Xóa</md-button>
         </div>
       </div>
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Quản lý hồ sơ</h4>
+            <a-row>
+              <a-col :span="20">
+                <h3 class="title">Quản lý hồ sơ</h3>
+              </a-col>
+              <a-col :span="4">
+              Lọc
+                <a-select
+                  default-value="assign_to_me"
+                  style="width: 240px"
+                  @change="handleChange"
+                >
+                  <a-select-option value=""> Tất cả </a-select-option>
+                  <a-select-option value="assign_to_me"> Được giao cho tôi </a-select-option>
+                </a-select>
+              </a-col>
+            </a-row>
           </md-card-header>
           <md-card-content>
             <data-table :get-data="getData" ref="datatable">
-                <th class="col_checkbox">
-                  <md-checkbox :plain="true" v-model="selectedAll"></md-checkbox>
-                </th>
-                <th class="col_title_en">Họ tên người thanh toán</th>
-                <th class="col_title_jp">Tên hồ sơ</th>
-                <th class="col_summary_en">Đơn vị</th>
-                <th class="col_created_at">Ngày nghiệp vụ phát sinh</th>
-                <th>Trạng thái</th>
-                <th class="col_tools">Công cụ</th>
-                <template slot="body" slot-scope="{ item, index }">
-                  <tr>
-                    <td class="text-center">
-                      <md-checkbox v-model="item.selected" @input="listenSelectRow"></md-checkbox>
-                    </td>
-                    <td class="text-center" v-html="item.payer_name"></td>
-                    <td class="text-center" v-html="item.name"></td>
-                    <td class="text-center" v-html="item.organization_id"></td>
-                    <td class="text-center" v-html="item.created_at"></td>
-                    <td v-html="item.current_step_id"></td>
-                    <td class="text-center">
-                      <md-button class="md-just-icon md-simple md-primary" @click="showStudentInfo(item)">
-                          <md-icon>visibility</md-icon>
-                          <md-tooltip md-direction="top">Xem kết quả học tập</md-tooltip>
-                        </md-button>
-                        <md-button class="md-just-icon md-simple md-primary" @click="editStudent(item.id)">
-                          <md-icon>edit</md-icon>
-                          <md-tooltip md-direction="top">Sửa</md-tooltip>
-                        </md-button>
-                        <md-button class="md-just-icon md-simple md-danger" @click="removeOneStudent(item.id)">
-                          <md-icon>close</md-icon>
-                          <md-tooltip md-direction="top">Xóa</md-tooltip>
-                        </md-button>
-                    </td>
-                  </tr>
-                </template>
+              <th class="col_checkbox">
+                <md-checkbox :plain="true" v-model="selectedAll"></md-checkbox>
+              </th>
+              <th class="col_title_en">Họ tên người thanh toán</th>
+              <th class="col_title_jp">Tên hồ sơ</th>
+              <th class="col_summary_en">Đơn vị</th>
+              <th class="col_created_at">Ngày nghiệp vụ phát sinh</th>
+              <th>Trạng thái</th>
+              <th class="col_tools">Công cụ</th>
+              <template slot="body" slot-scope="{ item, index }">
+                <tr>
+                  <td class="text-center">
+                  <md-checkbox
+                      v-model="item.selected"
+                      @input="listenSelectRow"
+                    ></md-checkbox>
+                  </td>
+                  <td class="text-center" v-html="item.payer_name"></td>
+                  <td class="text-center" v-html="item.name"></td>
+                  <td class="text-center" v-html="item.organization.name"></td>
+                  <td class="text-center" v-html="item.created_at"></td>
+                  <td v-html="item.current_step.name"></td>
+                  <td class="text-center">
+                    <md-button
+                      class="md-just-icon md-simple md-primary"
+                      @click="showStudentInfo(item)"
+                    >
+                      <md-icon>visibility</md-icon>
+                      <md-tooltip md-direction="top">Xem kết quả học tập</md-tooltip>
+                    </md-button>
+                    <md-button
+                      class="md-just-icon md-simple md-primary"
+                      @click="editStudent(item.id)"
+                    >
+                      <md-icon>edit</md-icon>
+                      <md-tooltip md-direction="top">Sửa</md-tooltip>
+                    </md-button>
+                  </td>
+                </tr>
+              </template>
             </data-table>
           </md-card-content>
         </md-card>
       </div>
-      <v-dialog/>
+      <v-dialog />
     </div>
   </div>
 </template>
 
 <script>
-import {
-  SimpleTable,
-} from '@/components'
+import { SimpleTable } from "@/components";
 
-import rf from '../../requests/RequestFactory';
-import StudentModal from '../../modals/Student';
+import rf from "../../requests/RequestFactory";
+import StudentModal from "../../modals/Student";
 
-export default{
+export default {
   components: {
     SimpleTable,
     StudentModal,
   },
-  data () {
+  data() {
     return {
-      searchInput: '',
+      searchInput: "",
       selectedAll: false,
-      selectedStudent: {}
-    }
+      selectedStudent: {},
+    };
   },
   methods: {
     removeOneStudent(studentId) {
-      this.$modal.show('dialog', {
-        title: 'Cảnh báo!',
-        text: 'Bạn có chắc chắn muốn xóa ?',
+      this.$modal.show("dialog", {
+        title: "Cảnh báo!",
+        text: "Bạn có chắc chắn muốn xóa ?",
         buttons: [
           {
-            title: 'Bỏ qua',
+            title: "Bỏ qua",
             handler: () => {
-              this.$modal.hide('dialog');
-            }
+              this.$modal.hide("dialog");
+            },
           },
           {
-            title: 'Xác nhận',
+            title: "Xác nhận",
             default: true,
             handler: () => {
-              return rf.getRequest('StudentRequest').removeOneStudent(studentId).then(() => {
-                this.$modal.hide('dialog');
-                this.$refs.datatable.refresh();
-                this.$toasted.show('Xóa người học thành công!', {
-                  theme: 'bubble',
-                  position: 'top-right',
-                  duration : 1500,
-                  type: 'success'
+              return rf
+                .getRequest("StudentRequest")
+                .removeOneStudent(studentId)
+                .then(() => {
+                  this.$modal.hide("dialog");
+                  this.$refs.datatable.refresh();
+                  this.$toasted.show("Xóa người học thành công!", {
+                    theme: "bubble",
+                    position: "top-right",
+                    duration: 1500,
+                    type: "success",
+                  });
                 });
-              });
-            }
+            },
           },
-        ]
+        ],
       });
     },
     removeManyStudent() {
-        this.$modal.show('dialog', {
-          title: 'Cảnh báo!',
-          text: 'Bạn có chắc chắn muốn xóa ?',
-          buttons: [
-            {
-              title: 'Bỏ qua',
-              handler: () => {
-                this.$modal.hide('dialog');
-              }
+      this.$modal.show("dialog", {
+        title: "Cảnh báo!",
+        text: "Bạn có chắc chắn muốn xóa ?",
+        buttons: [
+          {
+            title: "Bỏ qua",
+            handler: () => {
+              this.$modal.hide("dialog");
             },
-            {
-              title: 'Xác nhận',
-              default: true,
-              handler: () => {
-                const studentIds = this.$refs.datatable.rows.filter((row) => {
+          },
+          {
+            title: "Xác nhận",
+            default: true,
+            handler: () => {
+              const studentIds = this.$refs.datatable.rows
+                .filter((row) => {
                   return row.selected === true;
-                }).map(record => record.id);
+                })
+                .map((record) => record.id);
 
-                return rf.getRequest('StudentRequest').removeManyStudents(studentIds).then(() => {
-                  this.$modal.hide('dialog');
+              return rf
+                .getRequest("StudentRequest")
+                .removeManyStudents(studentIds)
+                .then(() => {
+                  this.$modal.hide("dialog");
                   this.$refs.datatable.refresh();
-                  this.$toasted.show('Student removed successfully!', {
-                    theme: 'bubble',
-                    position: 'top-right',
-                    duration : 1500,
-                    type: 'success'
+                  this.$toasted.show("Student removed successfully!", {
+                    theme: "bubble",
+                    position: "top-right",
+                    duration: 1500,
+                    type: "success",
                   });
                 });
-              }
             },
-          ]
-        });
-      },
-      showStudentInfo(student) {
-        this.$modal.show('statistic', {title: `Thông tin người dùng ${student.full_name}`, id: student.id});
+          },
+        ],
+      });
+    },
+    showStudentInfo(student) {
+      this.$modal.show("statistic", {
+        title: `Thông tin người dùng ${student.full_name}`,
+        id: student.id,
+      });
+    },
+    createStudent() {
+      this.$modal.show("student", { title: "Thêm người học" });
+    },
+    editStudent(studentId) {
+      this.$modal.show("student", {
+        title: "Sửa thông tin người học",
+        studentId: studentId,
+      });
+    },
+    listenSelectRow() {
+      if (!this.$refs.datatable) {
+        return true;
+      }
 
-      },
-      createStudent() {
-        this.$modal.show('student', {title: 'Thêm người học'});
-      },
-      editStudent(studentId) {
-        this.$modal.show('student', {title: 'Sửa thông tin người học', studentId: studentId});
-      },
-      listenSelectRow() {
-        if (!this.$refs.datatable) {
-          return true;
-        }
-
-        this.selectedAll = this.$refs.datatable.rows.filter(row => row.selected === true).length === this.$refs.datatable.rows.length;
-      },
-      getData (params) {
-        const meta = Object.assign({}, params, {
-          search: this.searchInput, 
-        });
-        return rf.getRequest('FileRequest').getFiles(meta);
-      },
-      refresh() {
-        this.isLoading = true;
-        this.$refs.datatable.refresh();
-        this.$refs.datatable.$on('DataTable:finish', () => {
-          this.isLoading = false;
-        });
-      },
+      this.selectedAll =
+        this.$refs.datatable.rows.filter((row) => row.selected === true).length ===
+        this.$refs.datatable.rows.length;
+    },
+    getData(params) {
+      const meta = Object.assign({}, params, {
+        search: this.searchInput,
+      });
+      return rf.getRequest("FileRequest").getFiles(meta);
+    },
+    refresh() {
+      this.isLoading = true;
+      this.$refs.datatable.refresh();
+      this.$refs.datatable.$on("DataTable:finish", () => {
+        this.isLoading = false;
+      });
+    },
   },
   watch: {
     searchInput() {
@@ -195,11 +231,10 @@ export default{
         return true;
       }
       this.$refs.datatable.rows.forEach((row) => {
-        this.$set(row, 'selected', this.selectedAll);
+        this.$set(row, "selected", this.selectedAll);
       });
     },
   },
-  mounted () {
-  }
-}
+  mounted() {},
+};
 </script>

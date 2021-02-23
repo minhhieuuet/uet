@@ -15,15 +15,18 @@ class RoleTableSeeder extends Seeder
         DB::table('roles')->truncate();
         DB::table('roles')->insert([[
             "id" => 1,
+            "name" => "Admin",
+        ],[
+            "id" => 2,
             "name" => "Người thanh toán",
         ], [
-            "id" => 2,
-            "name" => "Kĩ thuật viên",
-        ], [
             "id" => 3,
-            "name" => "Kế toán trưởng",
+            "name" => "Kế toán  viên",
         ], [
             "id" => 4,
+            "name" => "Kế toán trưởng",
+        ], [
+            "id" => 5,
             "name" => "Ban giám hiệu",
         ]]);
     }

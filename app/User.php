@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Organization;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -37,7 +38,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function bucket() {
-        return $this->hasOne('App\Models\Bucket');
+    public function organization() {
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function role() {
+        return $this->belongsTo(Models\Role::class);
     }
 }

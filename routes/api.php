@@ -12,6 +12,9 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 Route::group(['middleware' => 'auth:api', 'prefix' => '/'], function () {
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', 'UserController@getUsers');
+    });
     Route::group(['prefix' => 'files'], function () {
         Route::get('/', 'FileController@getFiles');
     });

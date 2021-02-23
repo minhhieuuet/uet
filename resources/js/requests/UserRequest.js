@@ -1,21 +1,8 @@
 import BaseModelRequest from './BaseModelRequest';
 
 export default class UserRequest extends BaseModelRequest {
-  getModelName () {
-    return 'users';
-  }
-  updateProfile(params) {
-    return this.post('/update-profile', params);
-  }
-  getStudentInfo(id) {
-    return this.get('/admin/student-info/' + id);
-  }
-  getStatistics() {
-    return this.get('/statistics');
-  }
-
-  getNewWordStatistics() {
-    return this.get('/statistics/new-word');
+  getUsers() {
+    return this.get('/users');
   }
 
   login (params) {
