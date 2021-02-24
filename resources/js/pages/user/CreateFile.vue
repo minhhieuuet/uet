@@ -13,10 +13,10 @@
       <span class="md-title">{{title}}</span>
       <a-divider />
       <a-form :form="form" @submit="handleSubmit">
-        <a-form-item v-bind="formItemLayout" label="Full name">
+        <a-form-item v-bind="formItemLayout" label="Họ tên người thanh toán:">
           <a-input
             v-decorator="[
-              'full-name',
+              'payer_name',
               {
                 rules: [
                   {
@@ -28,10 +28,10 @@
             ]"
           />
         </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="File name">
+        <a-form-item v-bind="formItemLayout" label="Tên hồ sơ">
           <a-input
             v-decorator="[
-              'file-name',
+              'name',
               {
                 rules: [
                   {
@@ -43,25 +43,10 @@
             ]"
           />
         </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="Unit">
-          <a-input
-            v-decorator="[
-              'unit',
-              {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your unit!',
-                  },
-                ],
-              },
-            ]"
-          />
-        </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="File type">
+        <a-form-item v-bind="formItemLayout" label="Đơn vị:">
           <a-select
             v-decorator="[
-              'file-type',
+              'organization_id',
               {
                 rules: [
                   {
@@ -73,23 +58,62 @@
             ]"
           >
             <a-select-option value="1">
-              Du toan
+              Đại học Công nghệ
             </a-select-option>
             <a-select-option value="2">
-              Hop dong
-            </a-select-option>
-            <a-select-option value="3">
-              Ho so thanh toan
-            </a-select-option>
-            <a-select-option value="4">
-              Tam ung
+              Đại học Ngoại ngữ
             </a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="Time">
-          <a-date-picker
+        <a-form-item v-bind="formItemLayout" label="Loại:">
+          <a-select
             v-decorator="[
-            'time',
+              'file_type_id',
+              {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please select a type!',
+                  },
+                ],
+              },
+            ]"
+          >
+            <a-select-option value="1">
+              Dự toán
+            </a-select-option>
+            <a-select-option value="2">
+              Hợp đồng, Thanh lý HĐ, BB liên quan
+            </a-select-option>
+            <a-select-option value="3">
+              Tạm ứng
+            </a-select-option>
+            <a-select-option value="4">
+              Hồ sơ thanh toán
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item v-bind="formItemLayout"label="Giá">
+          <a-input-number 
+           :min="0" 
+            v-decorator="[
+              'price',
+              {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please input price',
+                  },
+                ],
+              },
+            ]"
+          />
+        </a-form-item>
+        <!-- <a-form-item v-bind="formItemLayout" label="Ngày nghiệp vụ phát sinh:">
+          <a-date-picker
+          placeholder="Chọn ngày"
+            v-decorator="[
+            'created_at',
             {
               rules: [
                 { 
@@ -100,10 +124,10 @@
               ]
             }
           ]" />
-        </a-form-item>
+        </a-form-item> -->
         <a-form-item v-bind="tailFormItemLayout">
           <a-button type="primary" html-type="submit">
-            Submit
+            Tạo phiếu
           </a-button>
         </a-form-item>
       </a-form>
@@ -112,14 +136,16 @@
 </template>
 
 <script>
+import rf from "../../requests/RequestFactory";
+
 export default {
   data() {
     return {
-      title: 'Create file',
+      title: 'Tạo phiếu luân chuyển hồ sơ',
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
-          sm: { span: 4 },
+          sm: { span: 8 },
         },
         wrapperCol: {
           xs: { span: 24 },
@@ -146,8 +172,10 @@ export default {
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFieldsAndScroll((err, values) => {
+      this.form.validateFieldsAndScroll(async (err, values) => {
         if (!err) {
+          await rf.getRequest('FileRequest').storeFile(values);
+          this.$modal.hide('create-file');
           this.$emit('created');
         }
       });
@@ -155,7 +183,11 @@ export default {
   }
 }
 </script>
-
+<style>
+  .ant-form-item-label {
+    text-align: left !important;
+  }
+</style>
 <style lang="scss" scoped>
   .content {
     padding: 30px 30px 10px 30px;

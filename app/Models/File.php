@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
+    protected $fillable = ['name', 'user_id', 'current_step_id', 'price', 'payer_name', 'file_type_id', 'organization_id'];
+
     public function organization() {
         return $this->belongsTo(Organization::class);
     }

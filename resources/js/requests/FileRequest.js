@@ -6,6 +6,11 @@ export default class FileRequest extends BaseModelRequest {
         return this.get(url, params);
     }
 
+    storeFile(params) {
+        const url = '/files';
+        return this.post(url, params);
+    }
+
     getHistories(fileId) {
         const url = `/files/histories/${fileId}`;
         return this.get(url);
