@@ -17,6 +17,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => '/'], function () {
     });
     Route::group(['prefix' => 'files'], function () {
         Route::get('/', 'FileController@getFiles');
+        Route::post('/', 'FileController@createFile');
         Route::get('/histories/{file}', 'FileController@getHistories');
     });
 });

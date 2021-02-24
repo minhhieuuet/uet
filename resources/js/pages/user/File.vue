@@ -27,17 +27,19 @@
           <md-card-header data-background-color="green">
             <a-row>
               <a-col :span="20">
-                <h3 class="title">Quản lý hồ sơ</h3>
+                <h3 class="title">Quản lý phiếu luân chuyển hồ sơ</h3>
               </a-col>
               <a-col :span="4">
-              Lọc
+                Lọc
                 <a-select
                   default-value="assign_to_me"
                   style="width: 240px"
                   @change="handleChange"
                 >
                   <a-select-option value=""> Tất cả </a-select-option>
-                  <a-select-option value="assign_to_me"> Được giao cho tôi </a-select-option>
+                  <a-select-option value="assign_to_me">
+                    Được giao cho tôi
+                  </a-select-option>
                 </a-select>
               </a-col>
             </a-row>
@@ -56,7 +58,7 @@
               <template slot="body" slot-scope="{ item }">
                 <tr>
                   <td class="text-center">
-                  <md-checkbox
+                    <md-checkbox
                       v-model="item.selected"
                       @input="listenSelectRow"
                     ></md-checkbox>
@@ -76,7 +78,7 @@
                     </md-button>
                     <md-button
                       class="md-just-icon md-simple md-primary"
-                       @click="showFileInfo(item)"
+                      @click="showFileInfo(item)"
                     >
                       <md-icon>edit</md-icon>
                       <md-tooltip md-direction="top">Xử lý</md-tooltip>
@@ -89,7 +91,7 @@
         </md-card>
       </div>
       <v-dialog />
-      <CreateFile />
+      <CreateFile @created="refresh"/>
       <Progress />
     </div>
   </div>
@@ -100,15 +102,15 @@ import { SimpleTable } from "@/components";
 
 import rf from "../../requests/RequestFactory";
 import StudentModal from "../../modals/Student";
-import CreateFile from './CreateFile';
-import Progress from './Progress';
+import CreateFile from "./CreateFile";
+import Progress from "./Progress";
 
 export default {
   components: {
     SimpleTable,
     StudentModal,
     CreateFile,
-    Progress
+    Progress,
   },
   data() {
     return {
