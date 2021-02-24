@@ -59,39 +59,30 @@
           },
         ]"
       >
-        <a-select-option value="1">
-          Du toan
-        </a-select-option>
-        <a-select-option value="2">
-          Hop dong
-        </a-select-option>
-        <a-select-option value="3">
-          Ho so thanh toan
-        </a-select-option>
-        <a-select-option value="4">
-          Tam ung
-        </a-select-option>
+        <a-select-option value="1"> Du toan </a-select-option>
+        <a-select-option value="2"> Hop dong </a-select-option>
+        <a-select-option value="3"> Ho so thanh toan </a-select-option>
+        <a-select-option value="4"> Tam ung </a-select-option>
       </a-select>
     </a-form-item>
     <a-form-item v-bind="formItemLayout" label="Time">
       <a-date-picker
         v-decorator="[
-        'time',
-        {
-          rules: [
-            { 
-              type: 'object',
-              required: true,
-              message: 'Please select time!'
-            }
-          ]
-        }
-      ]" />
+          'time',
+          {
+            rules: [
+              {
+                type: 'object',
+                required: true,
+                message: 'Please select time!',
+              },
+            ],
+          },
+        ]"
+      />
     </a-form-item>
     <a-form-item v-bind="tailFormItemLayout">
-      <a-button type="primary" html-type="submit">
-        Submit
-      </a-button>
+      <a-button type="primary" html-type="submit"> Submit </a-button>
     </a-form-item>
   </a-form>
 </template>
@@ -122,24 +113,22 @@ export default {
           },
         },
       },
-    }
+    };
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'file' });
+    this.form = this.$form.createForm(this, { name: "file" });
   },
   methods: {
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          this.$emit('created');
+          this.$emit("created");
         }
       });
     },
-  }
-}
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
