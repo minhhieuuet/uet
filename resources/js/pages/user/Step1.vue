@@ -47,5 +47,9 @@ export default {
       font-weight: bold;
     }
   }
+  
+  .form-layout {
+    padding-left: 30px;
+  }
 }
 </style>

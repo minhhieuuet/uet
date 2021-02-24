@@ -19,9 +19,10 @@
           <div class="file-info">
             <Step1 />
           </div>
-          <div class="btn-submit" v-if="current === 1">
+          <div class="btn-submit" v-if="current === 0">
             <a-button type="primary" @click="nextStep"> Tiếp nhận </a-button>
           </div>
+
           <Step2 @toStep3="showConfirm" v-if="current === 2" />
           <Step3 @toStep4="showConfirm" v-if="current === 3" />
           <Step4 @toStep5="showConfirm" v-if="current === 4" />
@@ -79,7 +80,7 @@ export default {
   data() {
     return {
       title: "Thông tin hồ sơ",
-      current: 1,
+      current: 0,
     };
   },
   methods: {
