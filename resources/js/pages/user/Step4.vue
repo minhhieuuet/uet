@@ -23,7 +23,7 @@
         <a-button type="primary" html-type="submit">
           Lưu
         </a-button>
-        <a-button type="default" class="btn-default" @click="toStep4">
+        <a-button type="default" class="btn-default" @click="toStep5">
           Chuyển tiếp
         </a-button>
       </a-form-item>
@@ -71,8 +71,8 @@ export default {
         }
       });
     },
-    toStep2() {
-      this.$emit('toStep4');
+    toStep5() {
+      this.$emit('toStep5');
     }
   }
 }

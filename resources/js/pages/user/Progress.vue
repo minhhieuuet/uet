@@ -22,19 +22,19 @@
           <div class="btn-submit" v-if="current === 0">
             <a-button type="primary" @click="nextStep"> Tiếp nhận </a-button>
           </div>
-          <Step2 @toStep3="showConfirm" v-if="current === 1" />
-          <Step3 @toStep4="showConfirm" v-if="current === 2" />
-          <Step4 @toStep5="showConfirm" v-if="current === 3" />
-          <Step5 @toStep6="showConfirm" v-if="current === 4" />
-          <Step6 @toStep7="showConfirm" v-if="current === 5" />
-          <Step7 @toStep8="showConfirm" v-if="current === 6" />
-          <Step8 @toStep9="showConfirm" v-if="current === 7" />
-          <Step9 @toStep10="showConfirm" v-if="current === 8" />
-          <Step10 @finish="showConfirm" v-if="current === 9" />
 
+          <Step2 @toStep3="showConfirm" v-if="current === 2" />
+          <Step3 @toStep4="showConfirm" v-if="current === 3" />
+          <Step4 @toStep5="showConfirm" v-if="current === 4" />
+          <Step5 @toStep6="showConfirm" v-if="current === 5" />
+          <Step6 @toStep7="showConfirm" v-if="current === 6" />
+          <Step7 @toStep8="showConfirm" v-if="current === 7" />
+          <Step8 @toStep9="showConfirm" v-if="current === 8" />
+          <Step9 @toStep10="showConfirm" v-if="current === 9" />
+          <Step10 v-if="current === 10" />
         </a-col>
         <a-col :span="7">
-          <a-steps direction="vertical" size="small" :current="current">
+          <a-steps direction="vertical" size="small" :current="current - 1">
             <a-step title="Chờ KTV xử lý" />
             <a-step title="KTV tiếp nhận hồ sơ" />
             <a-step title="KTV trình KTT" />
@@ -63,7 +63,6 @@ import Step7 from "./Step7";
 import Step8 from "./Step8";
 import Step9 from "./Step9";
 import Step10 from "./Step10";
-
 
 export default {
   components: {

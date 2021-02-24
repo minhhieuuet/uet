@@ -1,59 +1,58 @@
 <template>
   <div>
-    <a-divider orientation="left">
-      KTT ký duyệt phiếu
-    </a-divider>
+    <a-divider orientation="left"> BGH duyệt (UNC) </a-divider>
     <a-form :form="form" @submit="handleSubmit">
-      <a-form-item v-bind="formItemLayout" label="Ngày trả KTV">
+      <a-form-item v-bind="formItemLayout" label="Ngày KTV gửi thư ký BGH">
         <a-date-picker
           v-decorator="[
-          'time-1',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
+            'time-1',
+            {
+              rules: [
+                {
+                  type: 'object',
+                  required: true,
+                  message: 'Please select time!',
+                },
+              ],
+            },
+          ]"
+        />
       </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngày thanh toán">
+      <a-form-item v-bind="formItemLayout" label="Ngày BGH trả:">
         <a-date-picker
           v-decorator="[
-          'time-2',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
+            'time-2',
+            {
+              rules: [
+                {
+                  type: 'object',
+                  required: true,
+                  message: 'Please select time!',
+                },
+              ],
+            },
+          ]"
+        />
       </a-form-item>
       <a-form-item v-bind="formItemLayout" label="Ngày nhận 3">
         <a-date-picker
           v-decorator="[
-          'time-3',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
+            'time-3',
+            {
+              rules: [
+                {
+                  type: 'object',
+                  required: true,
+                  message: 'Please select time!',
+                },
+              ],
+            },
+          ]"
+        />
       </a-form-item>
       <a-form-item v-bind="tailFormItemLayout">
-        <a-button type="primary" html-type="submit">
-          Lưu
-        </a-button>
-        <a-button type="default" class="btn-default" @click="toStep2">
+        <a-button type="primary" html-type="submit"> Lưu </a-button>
+        <a-button type="default" class="btn-default" @click="toStep10">
           Chuyển tiếp
         </a-button>
       </a-form-item>
@@ -87,29 +86,29 @@ export default {
           },
         },
       },
-    }
+    };
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'step1' });
+    this.form = this.$form.createForm(this, { name: "step1" });
   },
   methods: {
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          this.$message.success('Luu thanh cong');
+          this.$message.success("Luu thanh cong");
         }
       });
     },
     toStep2() {
-      this.$emit('toStep2');
-    }
-  }
-}
+      this.$emit("toStep10");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .btn-default {
-    margin-left: 10px;
-  }
+.btn-default {
+  margin-left: 10px;
+}
 </style>
