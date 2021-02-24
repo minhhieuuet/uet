@@ -14,40 +14,29 @@
       <span class="md-title">{{title}}</span>
       <a-divider />
       <a-row>
-        <a-col :span="18" class="form-content">
-          <div class="step-content">
-            <a-row class="row-item">
-              <a-col :span="6" class="text-bold">Full name:</a-col>
-              <a-col :span="8">Huy Nguyen</a-col>
-            </a-row>
-            <a-row class="row-item">
-              <a-col :span="6" class="text-bold">File name:</a-col>
-              <a-col :span="8">ABC</a-col>
-            </a-row>
-            <a-row class="row-item">
-              <a-col :span="6" class="text-bold">Unit:</a-col>
-              <a-col :span="8">UET</a-col>
-            </a-row>
-            <a-row class="row-item">
-              <a-col :span="6" class="text-bold">File type:</a-col>
-              <a-col :span="8">Unknown</a-col>
-            </a-row>
-            <a-row class="row-item">
-              <a-col :span="6" class="text-bold">Time:</a-col>
-              <a-col :span="8">2021/01/01</a-col>
-            </a-row>
+        <a-col :span="17" class="form-content">
+          <div class="file-info">
+            <Step0 />
           </div>
-          <div class="btn-submit">
+          <div class="btn-submit" v-if="current === 0">
             <a-button type="primary" @click="nextStep">
-              Submit
+              Tiep nhan
             </a-button>
           </div>
+          <Step1 @toStep2="showConfirm" v-if="current === 1" />
         </a-col>
-        <a-col :span="6">
+        <a-col :span="7">
           <a-steps direction="vertical" size="small" :current="current">
-            <a-step title="Waiting" />
-            <a-step title="Take file" />
-            <a-step title="Next" />
+            <a-step title="Cho KTV xu ly" />
+            <a-step title="KTV tiep nhan ho so" />
+            <a-step title="KTV trinh KTT" />
+            <a-step title="KTT ky duyet HS" />
+            <a-step title="BGH phe duyet" />
+            <a-step title="KTV lap phieu chi/UNC" />
+            <a-step title="KTT ky duyet phieu" />
+            <a-step title="BGH duyet (UNC)" />
+            <a-step title="KTV chuyen KB/NH" />
+            <a-step title="Ngay thanh toan" />
           </a-steps>
         </a-col>
       </a-row>
@@ -56,17 +45,34 @@
 </template>
 
 <script>
+import Step0 from './Step0';
+import Step1 from './Step1';
 export default {
+  components: {
+    Step0,
+    Step1
+  },
   data() {
     return {
-      title: 'File',
+      title: 'Thong tin ho so',
       current: 0,
     }
   },
   methods: {
     nextStep() {
       this.current++;
-    }
+    },
+    showConfirm() {
+      this.$confirm({
+        title: 'Ban co muon chuyen sang buoc tiep theo?',
+        content: 'Khi da chuyen sang buoc tiep theo, ban khong the thao tac gi tai cac buoc ve truoc',
+        onOk: () => {
+          this.nextStep();
+        },
+        onCancel() {},
+        cancelText: 'Huy bo'
+      });
+    },
   }
 }
 </script>
@@ -85,16 +91,15 @@ export default {
     top: 5px;
   }
   .form-content {
-    .row-item {
-      margin-bottom: 10px;
+    padding-right: 10px;
 
-      .text-bold {
-        font-weight: bold;
-      }
+    .file-info {
+      padding-left: 30px;
+      margin-bottom: 40px;
     }
 
     .btn-submit {
-      margin-top: 40px;
+      padding-left: 30px;
       margin-bottom: 20px;
     }
   }
