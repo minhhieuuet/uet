@@ -10,6 +10,7 @@ import AdminStore from '@/pages/admin/Store.vue';
 import UserDashboardLayout from '@/pages/user/Layout/DashboardLayout.vue'
 import File from '@/pages/user/File.vue';
 import User from '@/pages/user/User.vue';
+import Progress from '@/pages/user/Progress.vue';
 
 import NotFound from '@/pages/errors/404.vue';
 
@@ -45,6 +46,11 @@ export default {
                     path: '/user',
                     name: 'User',
                     component: User,
+                },
+                {
+                    path: '/progress',
+                    name: 'Progress',
+                    component: Progress,
                     meta: {
                         requiresAuth: true
                     }

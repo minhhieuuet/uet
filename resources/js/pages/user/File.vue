@@ -53,7 +53,7 @@
               <th class="col_created_at">Ngày nghiệp vụ phát sinh</th>
               <th>Trạng thái</th>
               <th class="col_tools">Công cụ</th>
-              <template slot="body" slot-scope="{ item, index }">
+              <template slot="body" slot-scope="{ item }">
                 <tr>
                   <td class="text-center">
                   <md-checkbox
@@ -89,6 +89,8 @@
         </md-card>
       </div>
       <v-dialog />
+      <CreateFile />
+      <Progress />
     </div>
   </div>
 </template>
@@ -98,11 +100,15 @@ import { SimpleTable } from "@/components";
 
 import rf from "../../requests/RequestFactory";
 import StudentModal from "../../modals/Student";
+import CreateFile from './CreateFile';
+import Progress from './Progress';
 
 export default {
   components: {
     SimpleTable,
     StudentModal,
+    CreateFile,
+    Progress
   },
   data() {
     return {
@@ -185,13 +191,10 @@ export default {
       });
     },
     showStudentInfo(student) {
-      this.$modal.show("statistic", {
-        title: `Thông tin người dùng ${student.full_name}`,
-        id: student.id,
-      });
+      this.$modal.show("progress");
     },
     createStudent() {
-      this.$modal.show("student", { title: "Thêm người học" });
+      this.$modal.show("create-file", { title: "Thêm file" });
     },
     editStudent(studentId) {
       this.$modal.show("student", {
