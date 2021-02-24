@@ -24,6 +24,7 @@
             </a-button>
           </div>
           <Step1 @toStep2="showConfirm" v-if="current === 1" />
+          <Step2 @toStep3="showConfirm" v-if="current === 2" />
         </a-col>
         <a-col :span="7">
           <a-steps direction="vertical" size="small" :current="current">
@@ -47,10 +48,12 @@
 <script>
 import Step0 from './Step0';
 import Step1 from './Step1';
+import Step2 from './Step2';
 export default {
   components: {
     Step0,
-    Step1
+    Step1,
+    Step2
   },
   data() {
     return {

@@ -1,10 +1,10 @@
 <template>
   <div>
     <a-divider orientation="left">
-      KTV tiep nhan ho so
+      KTV trinh KTT
     </a-divider>
     <a-form :form="form" @submit="handleSubmit" class="form-layout">
-      <a-form-item v-bind="formItemLayout" label="Ngay nhan 1">
+      <a-form-item v-bind="formItemLayout" label="Ngay xu ly xong">
         <a-date-picker
           v-decorator="[
           'time-1',
@@ -19,25 +19,10 @@
           }
         ]" />
       </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngay nhan 2">
+      <a-form-item v-bind="formItemLayout" label="Ngay trinh KTT">
         <a-date-picker
           v-decorator="[
           'time-2',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
-      </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngay nhan 3">
-        <a-date-picker
-          v-decorator="[
-          'time-3',
           {
             rules: [
               { 
@@ -53,7 +38,7 @@
         <a-button type="primary" html-type="submit">
           Luu
         </a-button>
-        <a-button type="default" class="btn-default" @click="toStep2">
+        <a-button type="default" class="btn-default" @click="toStep3">
           Chuyen Tiep
         </a-button>
       </a-form-item>
@@ -90,7 +75,7 @@ export default {
     }
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'step1' });
+    this.form = this.$form.createForm(this, { name: 'step2' });
   },
   methods: {
     handleSubmit(e) {
@@ -101,8 +86,8 @@ export default {
         }
       });
     },
-    toStep2() {
-      this.$emit('toStep2');
+    toStep3() {
+      this.$emit('toStep3');
     }
   }
 }
@@ -112,7 +97,7 @@ export default {
   .btn-default {
     margin-left: 10px;
   }
-  
+
   .form-layout {
     padding-left: 30px;
   }

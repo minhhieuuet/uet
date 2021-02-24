@@ -7,12 +7,21 @@
             <div class="hamburger-icon" @click="menuVisible = !menuVisible">
                 <a-icon type="menu" class="menu-btn" style="display: none;" />
             </div>
-            <a-tooltip>
-                <template slot="title">
+            <a-popover>
+                <template slot="content">
                     Đăng xuất
                 </template>
                 <a-icon type="logout" class="logout-btn" @click="logout()" />
-            </a-tooltip>
+            </a-popover>
+            <a-popover>
+                <template slot="content">
+                    <div>huy.nguyen@sotatek.com</div>
+                    <div>
+                        <span>Role: </span><span>KTV</span>
+                    </div>
+                </template>
+                <a-icon type="user" class="logout-btn" />
+            </a-popover>
         </a-layout-header>
         <a-layout-content class="layout-content" :style="{ margin: '24px 16px 0', overflow: 'initial' }">
             <div class="dashboard-content" :style="{ padding: '24px', background: '#fff', textAlign: 'left' }">
@@ -124,10 +133,6 @@ export default {
 
     .ant-layout {
         margin-left: 0px !important;
-    }
-
-    .ant-layout-footer {
-        /* display: none; */
     }
 
     .login {
