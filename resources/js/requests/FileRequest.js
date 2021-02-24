@@ -5,4 +5,9 @@ export default class FileRequest extends BaseModelRequest {
         const url = '/files';
         return this.get(url, params);
     }
+
+    getHistories(fileId) {
+        const url = `/files/histories/${fileId}`;
+        return this.get(url);
+    }
 }
