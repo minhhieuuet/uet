@@ -16,6 +16,9 @@ class File extends Model
         return $this->hasOne(FileStep::class, 'id', 'current_step_id');
     }
 
+    public function fileType() {
+        return $this->belongsTo(FileType::class);
+    }
     public function histories() {
         return $this->hasMany(FileHistory::class);
     }

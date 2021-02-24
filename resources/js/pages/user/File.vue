@@ -51,6 +51,7 @@
               </th>
               <th class="col_title_en">Họ tên người thanh toán</th>
               <th class="col_title_jp">Tên hồ sơ</th>
+              <th class="col_title_jp">Loại hồ sơ</th>
               <th class="col_summary_en">Đơn vị</th>
               <th class="col_created_at">Ngày nghiệp vụ phát sinh</th>
               <th>Trạng thái</th>
@@ -65,6 +66,7 @@
                   </td>
                   <td class="text-center" v-html="item.payer_name"></td>
                   <td class="text-center" v-html="item.name"></td>
+                  <td class="text-center" v-html="item.file_type.name"></td>
                   <td class="text-center" v-html="item.organization.name"></td>
                   <td class="text-center" v-html="item.created_at"></td>
                   <td v-html="item.current_step.name"></td>
@@ -122,8 +124,9 @@ export default {
   methods: {
     async showFileInfo(file) {
      const result = await rf.getRequest("FileRequest").getHistories(file.id);
-     console.log(result);
-     this.$modal.show("progress");
+     this.$modal.show("progress", {
+       file: file
+     });
     },
     createStudent() {
       this.$modal.show("create-file", { title: "Thêm file" });

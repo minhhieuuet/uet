@@ -17,7 +17,36 @@
       <a-row>
         <a-col :span="17" class="form-content">
           <div class="file-info">
-            <Step1 />
+            <div>
+              <div class="step-content">
+                <a-row class="row-item">
+                  <a-col :span="8" class="text-bold">Họ tên người thanh toán:</a-col>
+                  <a-col :span="8">{{ file.payer_name }}</a-col>
+                </a-row>
+                <a-row class="row-item">
+                  <a-col :span="8" class="text-bold">Tên hồ sơ:</a-col>
+                  <a-col :span="8">{{ file.name }}</a-col>
+                </a-row>
+                <a-row class="row-item">
+                  <a-col :span="8" class="text-bold">Đơn vị:</a-col>
+                  <a-col
+                    :span="8"
+                    v-html="file.organization ? file.organization.name : ''"
+                  ></a-col>
+                </a-row>
+                <a-row class="row-item">
+                  <a-col :span="8" class="text-bold">Loại hồ sơ:</a-col>
+                  <a-col
+                    :span="8"
+                    v-html="file.file_type ? file.file_type.name : ''"
+                  ></a-col>
+                </a-row>
+                <a-row class="row-item">
+                  <a-col :span="8" class="text-bold">Ngày nghiệp vụ phát sinh:</a-col>
+                  <a-col :span="8">{{ file.created_at }}</a-col>
+                </a-row>
+              </div>
+            </div>
           </div>
           <div class="btn-submit" v-if="current === 1">
             <a-button type="primary" @click="nextStep"> Tiếp nhận </a-button>
@@ -40,11 +69,13 @@
             <a-step title="KTV trình KTT" />
             <a-step title="KTT ký duyệt HS" />
             <a-step title="BGH phê duyệt" />
-            <a-step title="KTV lập phiếu chi/UNC" />
-            <a-step title="KTT ký duyệt phiếu" />
-            <a-step title="BGH duyệt (UNC)" />
-            <a-step title="KTV chuyển KB/NH" />
-            <a-step title="Thanh toán" />
+            <template v-if="[3, 4].includes(file.file_type_id)">
+              <a-step title="KTV lập phiếu chi/UNC" />
+              <a-step title="KTT ký duyệt phiếu" />
+              <a-step title="BGH duyệt (UNC)" />
+              <a-step title="KTV chuyển KB/NH" />
+              <a-step title="Thanh toán" />
+            </template>
           </a-steps>
         </a-col>
       </a-row>
@@ -81,9 +112,17 @@ export default {
     return {
       title: "Thông tin hồ sơ",
       current: 1,
+      file: {},
     };
   },
   methods: {
+    beforeOpen(event) {
+      this.file = event.params.file;
+      this.current = event.params.file.current_step_id;
+    },
+    beforeClose(event) {
+      this.file = {};
+    },
     nextStep() {
       this.current++;
     },
@@ -103,6 +142,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.form-content {
+  .row-item {
+    margin-bottom: 10px;
+
+    .text-bold {
+      font-weight: bold;
+    }
+  }
+
+  .form-layout {
+    padding-left: 30px;
+  }
+}
 .content {
   padding: 30px 30px 10px 30px;
 }
