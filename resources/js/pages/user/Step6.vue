@@ -1,10 +1,10 @@
 <template>
   <div>
     <a-divider orientation="left">
-      BGH phê duyệt
+      KTV lập phiếu chi/UNC
     </a-divider>
     <a-form :form="form" @submit="handleSubmit">
-      <a-form-item v-bind="formItemLayout" label="KTV gửi thư ký BGH">
+      <a-form-item v-bind="formItemLayout" label="Ngày lập:">
         <a-date-picker
           v-decorator="[
           'time-1',
@@ -19,7 +19,7 @@
           }
         ]" />
       </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngày BGH trả">
+      <a-form-item v-bind="formItemLayout" label="Ngày trình KTT">
         <a-date-picker
           v-decorator="[
           'time-2',
@@ -38,7 +38,7 @@
         <a-button type="primary" html-type="submit">
           Lưu
         </a-button>
-        <a-button type="default" class="btn-default" @click="toStep2">
+        <a-button type="default" class="btn-default" @click="toStep8">
           Chuyển tiếp
         </a-button>
       </a-form-item>
@@ -86,8 +86,8 @@ export default {
         }
       });
     },
-    toStep2() {
-      this.$emit('toStep2');
+    toStep8() {
+      this.$emit('toStep8');
     }
   }
 }

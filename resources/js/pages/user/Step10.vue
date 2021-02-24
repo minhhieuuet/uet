@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-divider orientation="left">
-     KTV chuyển KB/NH
+     Ngày thanh toán
     </a-divider>
     <a-form :form="form" @submit="handleSubmit">
       <a-form-item v-bind="formItemLayout" label="Ngày">
@@ -23,8 +23,8 @@
         <a-button type="primary" html-type="submit">
           Lưu
         </a-button>
-        <a-button type="default" class="btn-default" @click="toStep2">
-          Chuyển tiếp
+        <a-button type="default" class="btn-default">
+          Hoàn thành
         </a-button>
       </a-form-item>
     </a-form>
@@ -71,9 +71,6 @@ export default {
         }
       });
     },
-    toStep2() {
-      this.$emit('toStep2');
-    }
   }
 }
 </script>
