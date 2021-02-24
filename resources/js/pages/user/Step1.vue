@@ -1,119 +1,55 @@
 <template>
   <div>
-    <a-divider orientation="left">
-      KTV tiep nhan ho so
-    </a-divider>
-    <a-form :form="form" @submit="handleSubmit" class="form-layout">
-      <a-form-item v-bind="formItemLayout" label="Ngay nhan 1">
-        <a-date-picker
-          v-decorator="[
-          'time-1',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
-      </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngay nhan 2">
-        <a-date-picker
-          v-decorator="[
-          'time-2',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
-      </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngay nhan 3">
-        <a-date-picker
-          v-decorator="[
-          'time-3',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
-      </a-form-item>
-      <a-form-item v-bind="tailFormItemLayout">
-        <a-button type="primary" html-type="submit">
-          Luu
-        </a-button>
-        <a-button type="default" class="btn-default" @click="toStep2">
-          Chuyen Tiep
-        </a-button>
-      </a-form-item>
-    </a-form>
+    <div class="step-content">
+      <a-row class="row-item">
+        <a-col :span="8" class="text-bold">Họ tên người thanh toán:</a-col>
+        <a-col :span="8">Huy Nguyen</a-col>
+      </a-row>
+      <a-row class="row-item">
+        <a-col :span="8" class="text-bold">Tên hồ sơ:</a-col>
+        <a-col :span="8">ABC</a-col>
+      </a-row>
+      <a-row class="row-item">
+        <a-col :span="8" class="text-bold">Đơn vị:</a-col>
+        <a-col :span="8">UET</a-col>
+      </a-row>
+      <a-row class="row-item">
+        <a-col :span="8" class="text-bold">Loại hồ sơ:</a-col>
+        <a-col :span="8">Unknown</a-col>
+      </a-row>
+      <a-row class="row-item">
+        <a-col :span="8" class="text-bold">Ngày nghiệp vụ phát sinh:</a-col>
+        <a-col :span="8">2021/01/01</a-col>
+      </a-row>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      formItemLayout: {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 6 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 8 },
-        },
-      },
-      tailFormItemLayout: {
-        wrapperCol: {
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 6,
-          },
-        },
-      },
-    }
-  },
-  beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'step1' });
+    return {};
   },
   methods: {
-    handleSubmit(e) {
-      e.preventDefault();
-      this.form.validateFieldsAndScroll((err, values) => {
-        if (!err) {
-          this.$message.success('Luu thanh cong');
-        }
-      });
+    handleSubmit() {
+      this.$emit("nextStep");
     },
-    toStep2() {
-      this.$emit('toStep2');
-    }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .btn-default {
-    margin-left: 10px;
+.form-content {
+  .row-item {
+    margin-bottom: 10px;
+
+    .text-bold {
+      font-weight: bold;
+    }
   }
   
   .form-layout {
     padding-left: 30px;
   }
+}
 </style>

@@ -1,43 +1,13 @@
 <template>
   <div>
     <a-divider orientation="left">
-      KTV tiếp nhận hồ sơ
+     KTV chuyển KB/NH
     </a-divider>
-    <a-form :form="form" @submit="handleSubmit" class="form-layout">
-      <a-form-item v-bind="formItemLayout" label="Ngày nhận 1">
+    <a-form :form="form" @submit="handleSubmit">
+      <a-form-item v-bind="formItemLayout" label="Ngày">
         <a-date-picker
           v-decorator="[
           'time-1',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
-      </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngày nhận 2">
-        <a-date-picker
-          v-decorator="[
-          'time-2',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
-      </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngày nhận 3">
-        <a-date-picker
-          v-decorator="[
-          'time-3',
           {
             rules: [
               { 
@@ -90,7 +60,7 @@ export default {
     }
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'step2' });
+    this.form = this.$form.createForm(this, { name: 'step1' });
   },
   methods: {
     handleSubmit(e) {
@@ -101,8 +71,8 @@ export default {
         }
       });
     },
-    toStep3() {
-      this.$emit('toStep3');
+    toStep2() {
+      this.$emit('toStep2');
     }
   }
 }
@@ -111,9 +81,5 @@ export default {
 <style lang="scss" scoped>
   .btn-default {
     margin-left: 10px;
-  }
-
-  .form-layout {
-    padding-left: 30px;
   }
 </style>

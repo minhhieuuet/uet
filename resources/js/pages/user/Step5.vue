@@ -3,7 +3,7 @@
     <a-divider orientation="left">
       KTV tiếp nhận hồ sơ
     </a-divider>
-    <a-form :form="form" @submit="handleSubmit" class="form-layout">
+    <a-form :form="form" @submit="handleSubmit">
       <a-form-item v-bind="formItemLayout" label="Ngày nhận 1">
         <a-date-picker
           v-decorator="[
@@ -90,7 +90,7 @@ export default {
     }
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'step2' });
+    this.form = this.$form.createForm(this, { name: 'step1' });
   },
   methods: {
     handleSubmit(e) {
@@ -101,8 +101,8 @@ export default {
         }
       });
     },
-    toStep3() {
-      this.$emit('toStep3');
+    toStep2() {
+      this.$emit('toStep2');
     }
   }
 }
@@ -111,9 +111,5 @@ export default {
 <style lang="scss" scoped>
   .btn-default {
     margin-left: 10px;
-  }
-
-  .form-layout {
-    padding-left: 30px;
   }
 </style>
