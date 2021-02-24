@@ -108,6 +108,7 @@
               },
             ]"
           />
+          000 vnđ
         </a-form-item>
         <!-- <a-form-item v-bind="formItemLayout" label="Ngày nghiệp vụ phát sinh:">
           <a-date-picker
