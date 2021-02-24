@@ -121,6 +121,7 @@ export default {
     async showFileInfo(file) {
      const result = await rf.getRequest("FileRequest").getHistories(file.id);
      console.log(result);
+     this.$modal.show("progress");
     },
     createStudent() {
       this.$modal.show("create-file", { title: "Thêm file" });
