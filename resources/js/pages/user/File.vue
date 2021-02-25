@@ -73,7 +73,7 @@
                   <td class="text-center">
                     <md-button
                       class="md-just-icon md-simple md-primary"
-                      @click="showFileInfo(item)"
+                      @click="showFileHistory(item)"
                     >
                       <md-icon>visibility</md-icon>
                       <md-tooltip md-direction="top">Xem</md-tooltip>
@@ -95,6 +95,7 @@
       <v-dialog />
       <CreateFile @created="refresh"/>
       <Progress />
+      <History />
     </div>
   </div>
 </template>
@@ -106,6 +107,7 @@ import rf from "../../requests/RequestFactory";
 import StudentModal from "../../modals/Student";
 import CreateFile from "./CreateFile";
 import Progress from "./Progress";
+import History from './History';
 
 export default {
   components: {
@@ -113,6 +115,7 @@ export default {
     StudentModal,
     CreateFile,
     Progress,
+    History
   },
   data() {
     return {
@@ -127,6 +130,11 @@ export default {
      this.$modal.show("progress", {
        file: file
      });
+    },
+    async showFileHistory(file) {
+     const result = await rf.getRequest("FileRequest").getHistories(file.id);
+     console.log(result);
+     this.$modal.show("history");
     },
     createStudent() {
       this.$modal.show("create-file", { title: "Thêm file" });
