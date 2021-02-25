@@ -62,6 +62,7 @@
           <Step9 @toStep10="showConfirm" v-if="current === 9" />
           <Step10 v-if="current === 10" />
         </a-col>
+        {{file.file_type_id}}
         <a-col :span="7">
           <a-steps direction="vertical" size="small" :current="current - 1">
             <a-step title="Chờ KTV xử lý" />
@@ -69,7 +70,7 @@
             <a-step title="KTV trình KTT" />
             <a-step title="KTT ký duyệt HS" />
             <a-step title="BGH phê duyệt" />
-            <template v-if="[3, 4].includes(file.file_type_id)">
+            <template v-if="[3, 4].includes(Number(file.file_type_id))">
               <a-step title="KTV lập phiếu chi/UNC" />
               <a-step title="KTT ký duyệt phiếu" />
               <a-step title="BGH duyệt (UNC)" />
