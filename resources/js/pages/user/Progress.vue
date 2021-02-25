@@ -118,7 +118,8 @@ export default {
   methods: {
     beforeOpen(event) {
       this.file = event.params.file;
-      this.current = event.params.file.current_step_id;
+      this.current = Number(event.params.file.current_step_id);
+      console.log(this.current);
     },
     beforeClose(event) {
       this.file = {};

@@ -12,7 +12,7 @@
             rules: [
               { 
                 type: 'object',
-                required: true,
+
                 message: 'Please select time!'
               }
             ]
@@ -27,7 +27,7 @@
             rules: [
               { 
                 type: 'object',
-                required: true,
+
                 message: 'Please select time!'
               }
             ]
@@ -42,7 +42,7 @@
             rules: [
               { 
                 type: 'object',
-                required: true,
+
                 message: 'Please select time!'
               }
             ]

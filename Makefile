@@ -13,7 +13,7 @@ docker-restart:
 	make docker-link-storage
 
 docker-connect:
-	docker exec -it app bash
+	docker exec -it app1 bash
 
 init-app:
 	cp .env.example .env
@@ -26,8 +26,7 @@ init-app:
 	php artisan storage:link
 
 docker-init:
-	git submodule update --init
-	docker exec -it app make init-app
+	docker exec -it app1 make init-app
 
 init-db-full:
 	make autoload
@@ -35,10 +34,10 @@ init-db-full:
 	php artisan db:seed
 	php artisan passport:install --force
 docker-init-db-full:
-	docker exec -it app make init-db-full
+	docker exec -it app1 make init-db-full
 
 docker-link-storage:
-	docker exec -it app php artisan storage:link
+	docker exec -it app1 php artisan storage:link
 
 init-db:
 	make autoload
@@ -78,3 +77,19 @@ docker-cache:
 
 route:
 	php artisan route:list
+
+deploy:
+	ssh $(u)@$(h) "mkdir -p $(dir)"
+	rsync -avhzL --delete \
+				--no-perms --no-owner --no-group \
+				--exclude .git \
+				--exclude vendor \
+        --exclude .env \
+				--exclude .idea \
+				--exclude node_modules \
+				. $(u)@$(h):$(dir)/
+
+
+deploy-dev:
+	make deploy u=root h=139.180.204.128 dir=/var/www/html/uet
+	ssh root@sotatek.com "cd /var/www/html/uet && make cache"
