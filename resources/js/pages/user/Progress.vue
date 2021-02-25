@@ -48,7 +48,7 @@
               </div>
             </div>
           </div>
-          <div class="btn-submit" v-if="current === 1">
+          <div class="btn-submit" v-show="current == 1">
             <a-button type="primary" @click="nextStep"> Tiếp nhận </a-button>
           </div>
 
