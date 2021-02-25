@@ -62,7 +62,6 @@
           <Step9 @toStep10="showConfirm" v-if="current === 9" />
           <Step10 v-if="current === 10" />
         </a-col>
-        {{file.file_type_id}}
         <a-col :span="7">
           <a-steps direction="vertical" size="small" :current="current - 1">
             <a-step title="Chờ KTV xử lý" />
