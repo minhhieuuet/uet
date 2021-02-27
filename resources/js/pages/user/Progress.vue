@@ -52,15 +52,24 @@
             <a-button type="primary" @click="nextStep"> Tiếp nhận </a-button>
           </div>
 
-          <Step2 @toStep3="showConfirm" v-if="current === 2" />
-          <Step3 @toStep4="showConfirm" v-if="current === 3" />
-          <Step4 @toStep5="showConfirm" v-if="current === 4" />
-          <Step5 @toStep6="showConfirm" v-if="current === 5" />
-          <Step6 @toStep7="showConfirm" v-if="current === 6" />
-          <Step7 @toStep8="showConfirm" v-if="current === 7" />
-          <Step8 @toStep9="showConfirm" v-if="current === 8" />
-          <Step9 @toStep10="showConfirm" v-if="current === 9" />
-          <Step10 v-if="current === 10" />
+          <template v-if="!isFinish">
+            <Step2 @toStep3="showConfirm" v-if="current === 2" />
+            <Step3 @toStep4="showConfirm" v-if="current === 3" />
+            <Step4 @toStep5="showConfirm" v-if="current === 4" />
+            <Step5 @toStep6="showConfirm" v-if="current === 5" />
+            <Step6 @toStep7="showConfirm" v-if="current === 6" />
+            <Step7 @toStep8="showConfirm" v-if="current === 7" />
+            <Step8 @toStep9="showConfirm" v-if="current === 8" />
+            <Step9 @toStep10="showConfirm" v-if="current === 9" />
+            <Step10 @onFinish="finishProgress" v-if="current === 10" />
+          </template>
+          <template v-else>
+            <a-divider />
+            <a-result
+              status="success"
+              title="Hoan tat xu ly ho so"
+            />
+          </template>
         </a-col>
         <a-col :span="7">
           <a-steps direction="vertical" size="small" :current="current - 1">
@@ -113,6 +122,7 @@ export default {
       title: "Thông tin hồ sơ",
       current: 1,
       file: {},
+      isFinish: false
     };
   },
   methods: {
@@ -138,6 +148,9 @@ export default {
         cancelText: "Hủy bỏ",
       });
     },
+    finishProgress() {
+      this.isFinish = true;
+    }
   },
 };
 </script>
