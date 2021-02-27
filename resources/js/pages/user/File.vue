@@ -67,7 +67,7 @@
                   <td class="text-center" v-html="item.payer_name"></td>
                   <td class="text-center" v-html="item.name"></td>
                   <td class="text-center" v-html="item.file_type.name"></td>
-                  <td class="text-center" v-html="item.organization.name"></td>
+                  <td class="text-center" v-html="item.organization ? item.organization.name : ''"></td>
                   <td class="text-center" v-html="item.created_at"></td>
                   <td v-html="item.current_step.name"></td>
                   <td class="text-center">

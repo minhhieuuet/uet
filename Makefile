@@ -62,7 +62,7 @@ build:
 	docker exec -it app npm run dev
 
 watch:
-	docker exec -it app npm run watch-poll
+	docker exec -it app1 npm run watch-poll
 dev:
 	docker exec -it app npm run dev
 
