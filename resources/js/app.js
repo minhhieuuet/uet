@@ -111,6 +111,7 @@ router.afterEach((to) => {
 
 Vue.prototype.$isAuthenticated = window.isAuthenticated;
 Vue.prototype.$isAdmin = window.isAdmin;
+Vue.prototype.$role = window.role;
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

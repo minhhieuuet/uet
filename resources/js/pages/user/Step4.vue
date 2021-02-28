@@ -3,7 +3,7 @@
     <a-divider orientation="left">
       KTT ký duyệt HS
     </a-divider>
-    <template v-if="role === 'ktt'">
+    <template v-if="$role === 'ktt'">
       <a-form :form="form" @submit="handleSubmit" class="form-layout">
         <a-form-item v-bind="formItemLayout" label="Ngày trả KTV:">
           <a-date-picker
@@ -62,7 +62,6 @@ export default {
           },
         },
       },
-      role: 'ktt'
     }
   },
   beforeCreate() {

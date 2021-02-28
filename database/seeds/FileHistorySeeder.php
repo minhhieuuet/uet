@@ -14,13 +14,13 @@ class FileHistorySeeder extends Seeder
     {
         DB::table('file_histories')->truncate();
         DB::table('file_histories')->insert([
-            "file_id" => 1,
+            "file_id" => 2,
             "accountant_id" => 1,
-            "step_id" => 1,
+            "step_id" => 2,
             "content" => json_encode([
-                "Ngày nhận 1" => "20/03/2021",
-                "Ngày nhận 2" => "",
-                "Ngày nhận 3" => ""
+                "day_1" => "20/03/2021",
+                "day_2" => "",
+                "day_3" => ""
             ])
         ]);
     }

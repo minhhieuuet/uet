@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-divider orientation="left"> BGH duyệt (UNC) </a-divider>
-    <template v-if="role === 'ktv' || role === 'bgh'">
+    <template v-if="$role === 'ktv' || $role === 'bgh'">
       <a-form :form="form" @submit="handleSubmit">
         <template v-if="!time_1">
           <a-form-item v-bind="formItemLayout" label="KTV gửi thư ký BGH" class="form-layout">
@@ -12,20 +12,20 @@
                   rules: [
                     {
                       type: 'object',
-                      required: role === 'ktv' ? true : false,
+                      required: $role === 'ktv' ? true : false,
                       message: 'Please select time!',
                     },
                   ],
                 },
               ]"
-              :disabled="role === 'bgh'"
+              :disabled="$role === 'bgh'"
             />
           </a-form-item>
         </template>
         <template v-else>
           <a-alert message="Dang cho BGH xu ly" banner class="alert-msg" />
         </template>
-        <a-form-item v-bind="formItemLayout" label="Ngày BGH trả:" v-if="role === 'bgh'" class="form-layout">
+        <a-form-item v-bind="formItemLayout" label="Ngày BGH trả:" v-if="$role === 'bgh'" class="form-layout">
           <a-date-picker
             v-decorator="[
               'time-2',
@@ -41,7 +41,7 @@
             ]"
           />
         </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="Ngày nhận 3" v-if="role === 'bgh'" class="form-layout">
+        <a-form-item v-bind="formItemLayout" label="Ngày nhận 3" v-if="$role === 'bgh'" class="form-layout">
           <a-date-picker
             v-decorator="[
               'time-3',
@@ -59,7 +59,7 @@
         </a-form-item>
         <a-form-item v-bind="tailFormItemLayout" class="form-layout">
           <a-button type="primary" html-type="submit" v-if="!time_1"> Lưu </a-button>
-          <a-button type="default" class="btn-default" @click="toStep9" v-if="role === 'bgh'">
+          <a-button type="default" class="btn-default" @click="toStep9" v-if="$role === 'bgh'">
             Chuyển tiếp
           </a-button>
         </a-form-item>
@@ -98,7 +98,6 @@ export default {
           },
         },
       },
-      role: 'bgh',
       time_1: ''
     };
   },

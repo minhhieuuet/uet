@@ -9,16 +9,26 @@ export default class AuthenticationUtils {
   static isAdminRole () {
     return !!AuthenticationUtils.isAdmin;
   }
+
+  static getRole() {
+    return AuthenticationUtils.role;
+  }
+
   static saveAuthenticationData (data) {
     AuthenticationUtils.accessToken = data.access_token || '';
     let isAdmin = (data.role == 2)|| false;
+    let role = data.role?.code;
     AuthenticationUtils.isAdmin = isAdmin;
+    AuthenticationUtils.role = role;
     window.isAdmin = isAdmin;
+    window.role = role;
     Vue.prototype.$isAmin = window.isAdmin;
+    Vue.prototype.$role = window.role;
 
     window.sessionStorage.setItem('access_token', data.access_token || '');
     window.sessionStorage.setItem('prev_login', data.access_token ? new Date().valueOf() : '');
     window.sessionStorage.setItem('is_admin', isAdmin || '');
+    window.sessionStorage.setItem('role', role || '');
   }
 
   static removeAuthenticationData () {
@@ -42,6 +52,7 @@ export default class AuthenticationUtils {
     AuthenticationUtils.prevLogin = window.sessionStorage.getItem('prev_login') || '';
     AuthenticationUtils.accessToken = window.sessionStorage.getItem('access_token') || '';
     AuthenticationUtils.isAdmin = window.sessionStorage.getItem('is_admin') || '';
+    AuthenticationUtils.role = window.sessionStorage.getItem('role') || '';
     AuthenticationUtils.dataLoaded = true;
   }
 

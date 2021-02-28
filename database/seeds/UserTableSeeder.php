@@ -21,14 +21,6 @@ class UserTableSeeder extends Seeder
             "password" => bcrypt('123456'),
             "organization_id" => 1,
             "role_id" => 1
-        ],[
-            "id" => 2,
-            "name" => "user",
-            "full_name" => "user",
-            "email" => "user@gmail.com",
-            "password" => bcrypt('123456'),
-            "organization_id" => 1,
-            "role_id" => 2
         ], [
             "id" => 3,
             "name" => "ktv",
@@ -36,7 +28,7 @@ class UserTableSeeder extends Seeder
             "email" => "ktv@gmail.com",
             "password" => bcrypt('123456'),
             "organization_id" => 1,
-            "role_id" => 3
+            "role_id" => 2
         ], [
             "id" => 4,
             "name" => "ktt",
@@ -44,7 +36,7 @@ class UserTableSeeder extends Seeder
             "email" => "ktt@gmail.com",
             "password" => bcrypt('123456'),
             "organization_id" => 1,
-            "role_id" => 4
+            "role_id" => 3
         ], [
             "id" => 5,
             "name" => "bgh",
@@ -52,7 +44,7 @@ class UserTableSeeder extends Seeder
             "email" => "bgh@gmail.com",
             "password" => bcrypt('123456'),
             "organization_id" => 1,
-            "role_id" => 5
+            "role_id" => 4
         ]]);
     }
 }

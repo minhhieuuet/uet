@@ -16,18 +16,19 @@ class RoleTableSeeder extends Seeder
         DB::table('roles')->insert([[
             "id" => 1,
             "name" => "Admin",
-        ],[
+            "code" => "admin"
+        ], [
             "id" => 2,
-            "name" => "Người thanh toán",
+            "name" => "Kế toán  viên",
+            "code" => "ktv"
         ], [
             "id" => 3,
-            "name" => "Kế toán  viên",
+            "name" => "Kế toán trưởng",
+            "code" => "ktt"
         ], [
             "id" => 4,
-            "name" => "Kế toán trưởng",
-        ], [
-            "id" => 5,
             "name" => "Ban giám hiệu",
+            "code" => "bgh"
         ]]);
     }
 }

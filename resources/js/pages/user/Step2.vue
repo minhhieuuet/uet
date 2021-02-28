@@ -3,7 +3,7 @@
     <a-divider orientation="left">
       KTV tiếp nhận hồ sơ
     </a-divider>
-    <template v-if="role === 'ktv'">
+    <template v-if="$role === 'ktv'">
       <a-form :form="form" @submit="handleSubmit" class="form-layout">
         <a-form-item v-bind="formItemLayout" label="Ngày nhận 1">
           <a-date-picker
@@ -68,6 +68,12 @@
 
 <script>
 export default {
+  props: {
+    history: {
+      type: Array,
+      default: []
+    }
+  },
   data() {
     return {
       formItemLayout: {
@@ -92,7 +98,6 @@ export default {
           },
         },
       },
-      role: 'ktv'
     }
   },
   beforeCreate() {
@@ -110,6 +115,9 @@ export default {
     toStep3() {
       this.$emit('toStep3');
     }
+  },
+  created() {
+    console.log(this.history);
   }
 }
 </script>

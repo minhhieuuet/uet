@@ -48,12 +48,12 @@
               </div>
             </div>
           </div>
-          <div class="btn-submit" v-show="current == 1">
+          <div class="btn-submit" v-show="current == 1" v-if="$role === 'ktv'">
             <a-button type="primary" @click="nextStep"> Tiếp nhận </a-button>
           </div>
 
           <template v-if="!isFinish">
-            <Step2 @toStep3="showConfirm" v-if="current === 2" />
+            <Step2 @toStep3="showConfirm" :history="history" v-if="current === 2" />
             <Step3 @toStep4="showConfirm" v-if="current === 3" />
             <Step4 @toStep5="showConfirm" v-if="current === 4" />
             <Step5 @toStep6="showConfirm" v-if="current === 5" />
@@ -103,6 +103,7 @@ import Step7 from "./Step7";
 import Step8 from "./Step8";
 import Step9 from "./Step9";
 import Step10 from "./Step10";
+import rf from "../../requests/RequestFactory";
 
 export default {
   components: {
@@ -122,20 +123,30 @@ export default {
       title: "Thông tin hồ sơ",
       current: 1,
       file: {},
-      isFinish: false
+      isFinish: false,
+      history: []
     };
   },
   methods: {
     beforeOpen(event) {
       this.file = event.params.file;
       this.current = Number(event.params.file.current_step_id);
-      console.log(this.current);
+      this.showFileHistory(this.file);
+      // console.log(this.history);
     },
     beforeClose(event) {
       this.file = {};
     },
     nextStep() {
       this.current++;
+    },
+    async showFileHistory(file) {
+      await rf.getRequest("FileRequest").getHistories(file.id).then((res) => {
+        this.history = res;
+        console.log(this.history);
+      });
+    //  this.history = result;
+    //  console.log(this.history);
     },
     showConfirm() {
       this.$confirm({
