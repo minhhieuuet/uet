@@ -3,57 +3,70 @@
     <a-divider orientation="left">
       BGH phê duyệt
     </a-divider>
-    <a-form :form="form" @submit="handleSubmit">
-      <a-form-item v-bind="formItemLayout" label="KTV gửi thư ký BGH">
-        <a-date-picker
-          v-decorator="[
-          'time-1',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
+    <template v-if="$role === 'ktv' || $role === 'bgh'">
+      <a-form :form="form" @submit="handleSubmit">
+        <template v-if="!time_1">
+          <a-form-item v-bind="formItemLayout" label="KTV gửi thư ký BGH" class="form-layout">
+            <a-date-picker
+              v-decorator="[
+                'time_1',
+                {
+                  rules: [
+                    { 
+                      type: 'object',
+                      required: $role === 'ktv' ? true : false,
+                      message: 'Please select time!'
+                    }
+                  ]
+                }
+              ]" 
+              :disabled="$role === 'bgh'"
+            />
+          </a-form-item>
+        </template>
+        <template v-else>
+          <a-alert message="Dang cho BGH xu ly" banner class="alert-msg" />
+        </template>
+        <a-form-item v-bind="formItemLayout" label="Ngày BGH trả" v-if="$role === 'bgh'" class="form-layout">
+          <a-date-picker
+            v-decorator="[
+              'time-2',
+              {
+                rules: [
+                  { 
+                    type: 'object',
+                    required: true,
+                    message: 'Please select time!'
+                  }
+                ]
               }
-            ]
-          }
-        ]" />
-      </a-form-item>
-      <a-form-item v-bind="formItemLayout" label="Ngày BGH trả">
-        <a-date-picker
-          v-decorator="[
-          'time-2',
-          {
-            rules: [
-              { 
-                type: 'object',
-                required: true,
-                message: 'Please select time!'
-              }
-            ]
-          }
-        ]" />
-      </a-form-item>
-      <a-form-item v-bind="tailFormItemLayout">
-        <a-button type="primary" html-type="submit">
-          Lưu
-        </a-button>
-        <a-button type="default" class="btn-default" @click="toStep6">
-          Chuyển tiếp
-        </a-button>
-      </a-form-item>
-    </a-form>
+            ]" />
+        </a-form-item>
+        <a-form-item v-bind="tailFormItemLayout" class="form-layout">
+          <a-button type="primary" html-type="submit" v-if="!time_1">
+            Lưu
+          </a-button>
+          <a-button type="default" class="btn-default" @click="toStep6" v-if="$role === 'bgh'">
+            Chuyển tiếp
+          </a-button>
+        </a-form-item>
+      </a-form>
+    </template>
+    <template v-else>
+      <a-alert message="Dang cho KTV va BGH xu ly" banner class="alert-msg" />
+    </template>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
 export default {
   data() {
     return {
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
-          sm: { span: 6 },
+          sm: { span: 8 },
         },
         wrapperCol: {
           xs: { span: 24 },
@@ -68,10 +81,11 @@ export default {
           },
           sm: {
             span: 16,
-            offset: 6,
+            offset: 8,
           },
         },
       },
+      time_1: ''
     }
   },
   beforeCreate() {
@@ -83,6 +97,7 @@ export default {
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           this.$message.success('Luu thanh cong');
+          this.time_1 = values.time_1 ? moment(values.time_1).format('YYYY/MM/DD') : '';
         }
       });
     },
@@ -96,5 +111,13 @@ export default {
 <style lang="scss" scoped>
   .btn-default {
     margin-left: 10px;
+  }
+
+  .form-layout {
+    padding-left: 30px;
+  }
+
+  .alert-msg {
+    margin-bottom: 20px;
   }
 </style>

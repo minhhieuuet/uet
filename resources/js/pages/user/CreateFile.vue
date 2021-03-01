@@ -93,7 +93,7 @@
             </a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item v-bind="formItemLayout"label="Giá">
+        <a-form-item v-bind="formItemLayout" label="Giá">
           <a-input-number 
            :min="0" 
             v-decorator="[

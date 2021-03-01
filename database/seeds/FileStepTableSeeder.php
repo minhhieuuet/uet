@@ -23,9 +23,9 @@ class FileStepTableSeeder extends Seeder
                 "name" => "KTV nhận hồ sơ",
                 "priority" => 2,
                 "format" => json_encode([
-                    "Ngày nhận 1" => "",
-                    "Ngày nhận 2" => "",
-                    "Ngày nhận 3" => ""
+                    "day_1" => "",
+                    "day_2" => "",
+                    "day_3" => ""
                 ])
             ], [
                 "name" => "KTV trình KTT",

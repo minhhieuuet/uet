@@ -48,19 +48,28 @@
               </div>
             </div>
           </div>
-          <div class="btn-submit" v-show="current == 1">
+          <div class="btn-submit" v-show="current == 1" v-if="$role === 'ktv'">
             <a-button type="primary" @click="nextStep"> Tiếp nhận </a-button>
           </div>
 
-          <Step2 @toStep3="showConfirm" v-if="current === 2" />
-          <Step3 @toStep4="showConfirm" v-if="current === 3" />
-          <Step4 @toStep5="showConfirm" v-if="current === 4" />
-          <Step5 @toStep6="showConfirm" v-if="current === 5" />
-          <Step6 @toStep7="showConfirm" v-if="current === 6" />
-          <Step7 @toStep8="showConfirm" v-if="current === 7" />
-          <Step8 @toStep9="showConfirm" v-if="current === 8" />
-          <Step9 @toStep10="showConfirm" v-if="current === 9" />
-          <Step10 v-if="current === 10" />
+          <template v-if="!isFinish">
+            <Step2 @toStep3="showConfirm" :history="history" v-if="current === 2" />
+            <Step3 @toStep4="showConfirm" v-if="current === 3" />
+            <Step4 @toStep5="showConfirm" v-if="current === 4" />
+            <Step5 @toStep6="showConfirm" v-if="current === 5" />
+            <Step6 @toStep7="showConfirm" v-if="current === 6" />
+            <Step7 @toStep8="showConfirm" v-if="current === 7" />
+            <Step8 @toStep9="showConfirm" v-if="current === 8" />
+            <Step9 @toStep10="showConfirm" v-if="current === 9" />
+            <Step10 @onFinish="finishProgress" v-if="current === 10" />
+          </template>
+          <template v-else>
+            <a-divider />
+            <a-result
+              status="success"
+              title="Hoan tat xu ly ho so"
+            />
+          </template>
         </a-col>
         <a-col :span="7">
           <a-steps direction="vertical" size="small" :current="current - 1">
@@ -94,6 +103,7 @@ import Step7 from "./Step7";
 import Step8 from "./Step8";
 import Step9 from "./Step9";
 import Step10 from "./Step10";
+import rf from "../../requests/RequestFactory";
 
 export default {
   components: {
@@ -113,19 +123,30 @@ export default {
       title: "Thông tin hồ sơ",
       current: 1,
       file: {},
+      isFinish: false,
+      history: []
     };
   },
   methods: {
     beforeOpen(event) {
       this.file = event.params.file;
       this.current = Number(event.params.file.current_step_id);
-      console.log(this.current);
+      this.showFileHistory(this.file);
+      // console.log(this.history);
     },
     beforeClose(event) {
       this.file = {};
     },
     nextStep() {
       this.current++;
+    },
+    async showFileHistory(file) {
+      await rf.getRequest("FileRequest").getHistories(file.id).then((res) => {
+        this.history = res;
+        console.log(this.history);
+      });
+    //  this.history = result;
+    //  console.log(this.history);
     },
     showConfirm() {
       this.$confirm({
@@ -138,6 +159,9 @@ export default {
         cancelText: "Hủy bỏ",
       });
     },
+    finishProgress() {
+      this.isFinish = true;
+    }
   },
 };
 </script>
