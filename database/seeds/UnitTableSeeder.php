@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class OrganizationTableSeeder extends Seeder
+class UnitTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,9 +12,9 @@ class OrganizationTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('organizations')->truncate();
-        DB::table('organizations')->insert([
-            "name" => "UET"
+        DB::table('units')->truncate();
+        DB::table('units')->insert([
+            "name" => "Phong CTSV"
         ]);
     }
 }
